@@ -12,27 +12,23 @@ var PORT = 4000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-var notes = [
-    {
-        title: "test",
-        notes: "This is test note"
-    }
-];
+
 
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "notes.html"));
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
   });
   
 app.get("/", function(req, res) {
-res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(__dirname, "./public/index.html" ));
   });
 
+var noteData = require("./db/db.json");
 
 // Displays all notes
 app.get("/api/notes", function(req, res) {
-    return res.json(notes);
+    return res.json(noteData);
   });
 
 // Create New Note - takes in JSON input

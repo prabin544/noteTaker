@@ -16,7 +16,7 @@
   <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Note Taker
     </a>
-    <div class="icons" id="add-btn">
+    <div class="icons">
       <i class="fas fa-save text-light save-note"></i>
       <i class="fas fa-pen text-light new-note"></i>
     </div>
@@ -36,27 +36,10 @@
     </div>
   </div>
 
-  <script type="text/javascript">
-    // Question: What does this code do?
-    $("#add-btn").on("click", function(event) {
-      console.log("clicked");
-      event.preventDefault();
-      var newNote = {
-        title: $(".note-title").val().trim(),
-        note: $(".note-textarea").val().trim(),
-      };
-
-      // Question: What does this code do??
-      $.post("/api/notes", newNote)
-        .then(function(data) {
-          console.log("notes.html", data);
-          alert("Adding note...");
-        });
-    });
-  </script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/assets/js/index.js"></script>
 </body>
 
 </html>
+
+
