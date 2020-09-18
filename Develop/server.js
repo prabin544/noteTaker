@@ -2,6 +2,7 @@
 // =============================================================
 var express = require("express");
 var path = require("path");
+var fs = require("fs");
 
 // Sets up the Express App
 // =============================================================
@@ -24,42 +25,36 @@ app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html" ));
   });
 
+app.get("/assets/js/index.js", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/assets/js/index.js" ));
+});
+
+app.get("/assets/css/styles.css", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/assets/css/styles.css" ));
+});
+
 var noteData = require("./db/db.json");
 
 // Displays all notes
 app.get("/api/notes", function(req, res) {
     return res.json(noteData);
-  });
+});
 
 // Create New Note - takes in JSON input
 app.post("/api/notes", function(req, res) {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
-    var newNote = req.body;
+
+  var newNote = req.body;
+  noteData.push(newNote);
+  console.log(noteData);
+
+});
+
+//Delete Note
+app.delete("/api/notes/:id", function(req, res) {
+  console.log(req.params.id);
+});
   
-    // Using a RegEx Pattern to remove spaces from newNote
-    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newNote.routeName = newNote.name.replace(/\s+/g, "").toLowerCase();
-  
-    console.log(newNote);
-  
-    characters.push(newNote);
-  
-    res.json(newNote);
-  });
-  
-
-
-
-
-
-
-
-
-
-
-
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
-  });
+});
   
